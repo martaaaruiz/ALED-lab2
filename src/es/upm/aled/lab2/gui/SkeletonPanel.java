@@ -29,15 +29,15 @@ public class SkeletonPanel extends JPanel {
 	 * 
 	 * @param root  The first Segment of the kinematic chain.
 	 * @param sizeX The width of the window.
-	 * @param sizeX The height of the window.
+	 * @param sizeY The height of the window.
 	 */
 	public SkeletonPanel(Segment root, int sizeX, int sizeY) {
-		this.root = root;
+		this.root = root; //guarda el atributo del segmento raix 
 		// Setup Swing window
-		JFrame frame = new JFrame("Recursive Skeleton - Forward Kinematics");
+		JFrame frame = new JFrame("Recursive Skeleton - Forward Kinematics"); //crea la ventana 
 		frame.add(this);
 		frame.setSize(600, 600);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //fijar la operacion que cierra la ventana 
 		frame.setVisible(true);
 	}
 
@@ -57,12 +57,13 @@ public class SkeletonPanel extends JPanel {
 
 	private void drawSkeleton(Graphics g, double parentX, double parentY, Node node) {
 		// TODO: Ponga comentarios en este método
-		g.fillOval((int) node.getX() - 4, (int) node.getY() - 4, 8, 8);
-		g.drawLine((int) parentX, (int) parentY, (int) node.getX(), (int) node.getY());
-		if (node.getChildren().size() == 0) {
+		g.fillOval((int) node.getX() - 4, (int) node.getY() - 4, 8, 8); //codigo comun //pintan el circulo 
+		g.drawLine((int) parentX, (int) parentY, (int) node.getX(), (int) node.getY()); //codigo comun //pintan la ralla del nodo hijo al nodo padre 
+		//si el nodo no tiene hijos termino
+		if (node.getChildren().size() == 0) { //caso base, no seguire la recursividida si se cumple 
 			return;
 		}
-		for (Node child : node.getChildren()) {
+		for (Node child : node.getChildren()) { //paso recursivo, inocacion del metodo 
 			drawSkeleton(g, node.getX(), node.getY(), child);
 		}
 	}
